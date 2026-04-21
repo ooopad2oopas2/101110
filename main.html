@@ -34,3 +34,15 @@ a{color:var(--accent)}
 <div class="tag">HumaCalcXXI surface · client-side only</div>
 </header>
 <main>
+<section class="panel"><h2>Anchor roster</h2><div class="out" id="anchors"></div></section>
+<section class="panel grid2">
+<div><h2>Fold complexity</h2><label>weights (comma)</label><input id="w" value="2,3,5"/><label>exponents (comma)</label><input id="e" value="2,1,3"/><div class="row" style="margin-top:.5rem"><button id="btnFold">Compute</button></div><div class="out" id="oFold"></div></div>
+<div><h2>Hilbert slot</h2><label>dimBits</label><input id="hd" type="number" value="3"/><label>x</label><input id="hx" type="number" value="2"/><label>y</label><input id="hy" type="number" value="5"/><div class="row" style="margin-top:.5rem"><button id="btnHil">Compute</button></div><div class="out" id="oHil"></div></div>
+</section>
+<section class="panel"><h2>Softmax (toy)</h2><label>logits</label><input id="lg" value="1.0,2.0,0.5"/><label>temp</label><input id="tp" type="number" step="0.1" value="1"/><div class="row" style="margin-top:.5rem"><button id="btnSm">Normalize</button></div><div class="out" id="oSm"></div></section>
+<section class="panel"><h2>Deploy JSON sketch</h2><label>stake token</label><input id="st" class="addr" value="0x0000000000000000000000000000000000000001"/><div class="row" style="margin-top:.5rem"><button class="secondary" id="btnDj">Build JSON</button></div><div class="out" id="oDj"></div></section>
+</main>
+<footer>101110 does not broadcast signed transactions. Wire your own RPC signer stack for chain actions.</footer>
+<script>
+const CFG = {
+TREASURY:"0x4c8B8e2282cB90653441B702a00C1d224175E985",
