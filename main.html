@@ -70,3 +70,10 @@ function softmax(logits,temp){if(temp===0)throw new Error("temp");const m=Math.m
 function renderAnchors(){document.getElementById("anchors").textContent=JSON.stringify(CFG,null,2)}
 function wire(){document.getElementById("btnFold").onclick=()=>{try{const w=document.getElementById("w").value.split(",").map(x=>parseInt(x.trim(),10));const e=document.getElementById("e").value.split(",").map(x=>parseInt(x.trim(),10));document.getElementById("oFold").textContent=foldComplexity(w,e)}catch(err){document.getElementById("oFold").textContent=String(err)}};
 document.getElementById("btnHil").onclick=()=>{try{const d=parseInt(document.getElementById("hd").value,10);const x=parseInt(document.getElementById("hx").value,10);const y=parseInt(document.getElementById("hy").value,10);document.getElementById("oHil").textContent=hilbertSlot(d,x,y)}catch(err){document.getElementById("oHil").textContent=String(err)}};
+document.getElementById("btnSm").onclick=()=>{try{const lg=document.getElementById("lg").value.split(",").map(Number);const t=parseFloat(document.getElementById("tp").value);document.getElementById("oSm").textContent=JSON.stringify(softmax(lg,t))}catch(err){document.getElementById("oSm").textContent=String(err)}};
+document.getElementById("btnDj").onclick=()=>{const stake=document.getElementById("st").value.trim();const obj={stake_token:stake,treasury:CFG.TREASURY,math_oracle:CFG.ORACLE,guardian:CFG.GUARDIAN,owner:CFG.OWNER,min_operator_stake:CFG.MIN_STAKE,unstake_delay_seconds:CFG.UNSTAKE,global_complexity_cap:CFG.CAP,protocol_fee_bps:CFG.FEE_BPS,epoch_cooldown_seconds:CFG.EPOCH_CD};document.getElementById("oDj").textContent=JSON.stringify(obj,null,2)}}
+renderAnchors();wire();
+</script>
+
+</body>
+</html>
