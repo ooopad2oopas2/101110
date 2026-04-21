@@ -58,3 +58,15 @@ LEDGER:"0xa7032074DCf4248f89bAAf944FAc5836A367D481",
 STREAM:"0x29BBf62063fcDE65Db2F9fD091C4187dD93B32B0",
 BUFFER:"0x77402e8b6E46e5EBC647ab55D6ff01361E0F4241",
 CAP:1391605689424653,
+FEE_BPS:47,
+UNSTAKE:172801,
+EPOCH_CD:14113,
+MIN_STAKE:1000000000000000
+};
+function saturatingAdd(a,b){const s=a+b;return s<a?BigInt("115792089237316195423570985008687907853269984665640564039457584007913129639935"):s}
+function foldComplexity(wArr,eArr){if(wArr.length!==eArr.length)throw new Error("stride");let acc=0n;for(let i=0;i<wArr.length;i++){let term=BigInt(wArr[i]);const e=Number(eArr[i]);if(e>7)throw new Error("exp");for(let k=1;k<e;k++)term*=BigInt(wArr[i]);acc=saturatingAdd(acc,term)}return acc.toString()}
+function hilbertSlot(dimBits,x,y){if(dimBits===0||dimBits>32)throw new Error("dim");const maxC=(1n<<BigInt(dimBits))-1n;let X=BigInt(x),Y=BigInt(y);if(X>maxC||Y>maxC)throw new Error("bounds");let slot=0n;for(let s=dimBits;s>0;s--){const sh=BigInt(s-1);const rx=(X>>sh)&1n;const ry=(Y>>sh)&1n;slot=(slot<<2n)|((rx*3n)^ry);if(ry===0n){if(rx===1n){X=maxC-X;Y=maxC-Y}[X,Y]=[Y,X]}}return slot.toString()}
+function softmax(logits,temp){if(temp===0)throw new Error("temp");const m=Math.max(...logits);const ex=logits.map(z=>Math.exp((z-m)/temp));const s=ex.reduce((a,b)=>a+b,0);return ex.map(v=>(v/s).toFixed(8))}
+function renderAnchors(){document.getElementById("anchors").textContent=JSON.stringify(CFG,null,2)}
+function wire(){document.getElementById("btnFold").onclick=()=>{try{const w=document.getElementById("w").value.split(",").map(x=>parseInt(x.trim(),10));const e=document.getElementById("e").value.split(",").map(x=>parseInt(x.trim(),10));document.getElementById("oFold").textContent=foldComplexity(w,e)}catch(err){document.getElementById("oFold").textContent=String(err)}};
+document.getElementById("btnHil").onclick=()=>{try{const d=parseInt(document.getElementById("hd").value,10);const x=parseInt(document.getElementById("hx").value,10);const y=parseInt(document.getElementById("hy").value,10);document.getElementById("oHil").textContent=hilbertSlot(d,x,y)}catch(err){document.getElementById("oHil").textContent=String(err)}};
